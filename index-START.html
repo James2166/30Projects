@@ -35,6 +35,43 @@
   </div>
 
 <script>
+  const slider = document.querySelector('.items');
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+  let scrollSpeed = 3; // changes how fast User scrolls
+
+  function clicked(e) {
+    isDown = true;
+    slider.classList.add('active');
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+  }
+
+  function scroll(e) {
+    if (!isDown) return; // stop from running
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * scrollSpeed;
+    slider.scrollLeft = scrollLeft - walk;
+  }
+
+slider.addEventListener('mousedown', clicked);
+
+slider.addEventListener('mouseleave', () => {
+  isDown = false;
+  slider.classList.remove('active');
+});
+
+slider.addEventListener('mouseup', () => {
+  isDown = false;
+  slider.classList.remove('active');
+});
+
+slider.addEventListener('mousemove', scroll);
+
+
+
 </script>
 
   </body>
